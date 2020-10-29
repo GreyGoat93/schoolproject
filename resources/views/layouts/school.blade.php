@@ -23,9 +23,16 @@
     <nav class="navbar bg-secondary">
         <div class="container">
             <div class="navbar-brand">
-                <h1 class="text-dark">
+                <h3 class="text-dark p-0 m-0">
                     SchoolProject
-                </h1>
+                </h3>
+            </div>
+            <div>
+                @guest
+                    <a href="{{route('login')}}" class="text-light">Login</a>
+                @else
+
+                @endguest
             </div>
         </div>
     </nav>
