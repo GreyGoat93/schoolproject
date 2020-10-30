@@ -31,9 +31,14 @@
                 @guest
                     <a href="{{route('login')}}" class="text-light">Login</a>
                 @else
-
+                    <a href="{{route('logout')}}" class="text-light" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">Logout</a>
                 @endguest
             </div>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
         </div>
     </nav>
     <main class="py-4">

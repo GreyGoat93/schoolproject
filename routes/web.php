@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ManagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('school.home');
 });
+
+Route::get('/management', [ManagerController::class, 'home']);
+
+Route::get('/management/createuser', [ManagerController::class, 'createUser'])
+->name('management.createuser');
