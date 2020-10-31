@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,6 @@ Route::get('/', function () {
 
 Route::get('/management', [ManagerController::class, 'home']);
 
-Route::get('/management/createuser', [ManagerController::class, 'createUser'])
+Route::get('/management/createuser', [UserController::class, 'createUser'])
+->middleware('isManager')
 ->name('management.createuser');

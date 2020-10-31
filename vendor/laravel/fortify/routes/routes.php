@@ -57,11 +57,11 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
     // Registration...
     if (Features::enabled(Features::registration())) {
         Route::get('/register', [RegisteredUserController::class, 'create'])
-            ->middleware(['guest'])
+            ->middleware(['isManager'])
             ->name('register');
 
         Route::post('/register', [RegisteredUserController::class, 'store'])
-            ->middleware(['guest']);
+            ->middleware(['isManager']);
     }
 
     // Email Verification...

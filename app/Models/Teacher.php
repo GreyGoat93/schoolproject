@@ -11,6 +11,7 @@ class Teacher extends Model
 
     protected $table = "teacher";
     protected $primaryKey = "id";
+    protected $fillable = ["user_id"];
 
     public function user(){
         return $this->hasOne('App\Models\User');

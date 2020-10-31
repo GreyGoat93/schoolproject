@@ -51,9 +51,20 @@ class RegisteredUserController extends Controller
     public function store(Request $request,
                           CreatesNewUsers $creator): RegisterResponse
     {
-        //dd($request);
+        // dd($request);
         event(new Registered($user = $creator->create($request->all())));
-
+        // if($request->role_id == 2){
+        //     $teacher = new Teacher;
+        //     $teacher->user_id = $request->id;
+        //     $teacher->save();
+        // }
+        // else if($request->role_id == 3){
+        //     $student = new Student;
+        //     $student->user_id = $request->id;
+        //     $student->grade = 5;
+        //     $student->classroom_id = 1;
+        //     $student->save();
+        // }
         //$this->guard->login($user);
 
         return app(RegisterResponse::class);

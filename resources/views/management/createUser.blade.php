@@ -92,7 +92,7 @@
                             </div>
                         </div>
 
-                        <input type="number" style="display:none;" value="{{$roleid}}">
+                        <input type="number" style="display:none;" value="{{$roleid}}" name="role_id">
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
