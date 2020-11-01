@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function createUser(Request $request){
+    public function create(Request $request){
         //dd($request->role);
         if($request->role == 'student'){
             $roleid = 3;

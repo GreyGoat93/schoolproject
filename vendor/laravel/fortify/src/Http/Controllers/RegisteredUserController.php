@@ -9,6 +9,8 @@ use Illuminate\Routing\Controller;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Contracts\RegisterViewResponse;
+use App\Models\Teacher;
+use App\Models\Student;
 
 class RegisteredUserController extends Controller
 {
@@ -53,18 +55,18 @@ class RegisteredUserController extends Controller
     {
         // dd($request);
         event(new Registered($user = $creator->create($request->all())));
-        // if($request->role_id == 2){
-        //     $teacher = new Teacher;
-        //     $teacher->user_id = $request->id;
-        //     $teacher->save();
-        // }
-        // else if($request->role_id == 3){
-        //     $student = new Student;
-        //     $student->user_id = $request->id;
-        //     $student->grade = 5;
-        //     $student->classroom_id = 1;
-        //     $student->save();
-        // }
+        if($request->role_id == 2){
+            $teacher = new Teacher;
+            $teacher->user_id = $user->id;
+            $teacher->save();
+        }
+        else if($request->role_id == 3){
+            $student = new Student;
+            $student->user_id = $user->id;
+            $student->grade = 5;
+            $student->classroom_id = 1;
+            $student->save();
+        }
         //$this->guard->login($user);
 
         return app(RegisterResponse::class);

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClassroomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,12 @@ Route::get('/', function () {
 
 Route::get('/management', [ManagerController::class, 'home']);
 
-Route::get('/management/createuser', [UserController::class, 'createUser'])
+Route::get('/management/createuser', [UserController::class, 'create'])
 ->middleware('isManager')
-->name('management.createuser');
+->name('user.create');
+
+Route::get('/management/createclassroom', [ClassroomController::class, 'create'])
+->middleware('isManager')
+->name('classroom.create');
+
+Route::post('/management/createclassroom', [ClassroomController::class, 'store']);

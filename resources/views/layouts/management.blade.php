@@ -24,8 +24,9 @@
         <div class="row" style="min-height:100vh;">
             <div class="col-2 bg-primary p-0">
                 <ul class="list-group">
-                    <li class="list-group-item rounded-0"><a href="{{route('management.createuser', ['role' => 'student'])}}">Create New Student</a></li>
-                    <li class="list-group-item rounded-0"><a href="{{route('management.createuser', ['role' => 'teacher'])}}">Create New Teacher</a></li>
+                    <li class="list-group-item rounded-0"><a href="{{route('user.create', ['role' => 'student'])}}">Create New Student</a></li>
+                    <li class="list-group-item rounded-0"><a href="{{route('user.create', ['role' => 'teacher'])}}">Create New Teacher</a></li>
+                    <li class="list-group-item rounded-0"><a href="{{route('classroom.create')}}">Create New Classroom</a></li>
                 </ul>
             </div>
 
