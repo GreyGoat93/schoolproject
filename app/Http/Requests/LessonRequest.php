@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\NumbersBetween;
 
-class Classroom extends FormRequest
+class LessonRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class Classroom extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,8 @@ class Classroom extends FormRequest
     public function rules()
     {
         return [
-            //
+            'grade' => ['required', 'integer', new NumbersBetween(1,12)],
+            'name' => ['required', ],
         ];
     }
 }

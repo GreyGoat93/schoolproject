@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\LessonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,23 @@ Route::get('/management/createuser', [UserController::class, 'create'])
 ->middleware('isManager')
 ->name('user.create');
 
+Route::get('/management/users', [UserController::class, 'index'])
+->middleware('isManager')
+->name('user.index');
+
 Route::get('/management/createclassroom', [ClassroomController::class, 'create'])
 ->middleware('isManager')
 ->name('classroom.create');
 
-Route::post('/management/createclassroom', [ClassroomController::class, 'store']);
+Route::post('/management/createclassroom', [ClassroomController::class, 'store'])
+->middleware('isManager')
+->name('classroom.store');
+
+Route::get('/management/createlesson', [LessonController::class, 'create'])
+->middleware('isManager')
+->name('lesson.create');
+
+Route::post('/management/createlesson', [LessonController::class, 'store'])
+->middleware('isManager')
+->name('lesson.store');
+

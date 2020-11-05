@@ -27,6 +27,7 @@
                     <li class="list-group-item rounded-0"><a href="{{route('user.create', ['role' => 'student'])}}">Create New Student</a></li>
                     <li class="list-group-item rounded-0"><a href="{{route('user.create', ['role' => 'teacher'])}}">Create New Teacher</a></li>
                     <li class="list-group-item rounded-0"><a href="{{route('classroom.create')}}">Create New Classroom</a></li>
+                    <li class="list-group-item rounded-0"><a href="{{route('lesson.create')}}">Create New Lesson</a></li>
                 </ul>
             </div>
 

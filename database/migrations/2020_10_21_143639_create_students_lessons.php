@@ -20,8 +20,8 @@ class CreateStudentsLessons extends Migration
             $table->boolean('has_project');
             $table->boolean('is_active');
             $table->timestamps();
-            $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('lesson_id')->references('id')->on('lessons');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
         });
     }
 

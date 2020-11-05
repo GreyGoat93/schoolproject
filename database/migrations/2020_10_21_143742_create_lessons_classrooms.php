@@ -18,8 +18,8 @@ class CreateLessonsClassrooms extends Migration
             $table->unsignedBigInteger('classroom_id');
             $table->primary(['lesson_id', 'classroom_id']);
             $table->integer('minimum_required_point');
-            $table->foreign('lesson_id')->references('id')->on('lessons');
-            $table->foreign('classroom_id')->references('id')->on('classrooms');
+            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
+            $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
             $table->timestamps();
         });
     }

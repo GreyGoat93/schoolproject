@@ -18,9 +18,9 @@ class CreateTeachersHaveLesson extends Migration
             $table->unsignedBigInteger('teacher_id');
             $table->unsignedBigInteger('classroom_id');
             $table->unsignedBigInteger('lesson_id');
-            $table->foreign('teacher_id')->references('id')->on('teachers');
-            $table->foreign('classroom_id')->references('id')->on('classrooms');
-            $table->foreign('lesson_id')->references('id')->on('lessons');
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+            $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
+            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
             $table->timestamps();
         });
     }

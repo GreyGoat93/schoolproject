@@ -9,8 +9,9 @@ class Lesson extends Model
 {
     use HasFactory;
 
-    protected $table = "lesson";
+    protected $table = "lessons";
     protected $primaryKey = "id";
+    protected $fillable = ['grade', 'name'];
 
     public function score(){
         return $this->hasMany('App\Models\Score');

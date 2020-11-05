@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
+    public function index(){
+        $users = User::all();
+
+        return view('management.getUsers', ['users' => $users]);
+    }
+
     public function create(Request $request){
         //dd($request->role);
         if($request->role == 'student'){
@@ -16,6 +23,6 @@ class UserController extends Controller
             $roleid = 2;
             $title = 'Create New Teacher';
         }
-        return view('management.createUser', ['roleid' => $roleid, 'title' => $title]);
+        return view('management.createUser', ['roleid' => $roleid ?? 1, 'title' => $title ?? 'Create Manager']);
     }
 }
