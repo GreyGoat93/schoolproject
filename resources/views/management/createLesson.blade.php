@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-5">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Create New Classroom') }}</div>
+                <div class="card-header">{{ __('Create New Lesson') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('lesson.store') }}">
+                    <form method="POST" action="{{ route('lesson.store') }}" id="form">
                         @csrf
 
                         <div class="form-group row">
@@ -16,12 +16,8 @@
 
                             <div class="col-md-6">
                                 <input id="grade" type="number" class="form-control @error('grade') is-invalid @enderror" name="grade" value="{{ old('grade') ?? 1}}" required autocomplete="grade" autofocus>
-
-                                @error('grade')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                    <span class="invalid-feedbac" role="alert" id="gradeError">
                                     </span>
-                                @enderror
                             </div>
                         </div>
 
@@ -31,18 +27,16 @@
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name')}}" required autocomplete="name" autofocus>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                    <span class="invalid-feedbac" role="alert" id="nameError">
                                     </span>
-                                @enderror
+
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Create Lesoon') }}
+                                <button type="submit" class="btn btn-primary" id="submit">
+                                    {{ __('Create Lesson') }}
                                 </button>
                             </div>
                         </div>
@@ -52,4 +46,49 @@
         </div>
     </div>
 </div>
+
+<script>
+    var nameError = $('#nameError');
+    var gradeError = $('#gradeError');
+
+    $('#submit').click(function(){
+        event.preventDefault();
+
+        var grade = $('#grade').val();
+        var name = $('#name').val();
+
+        $.ajax({
+            url: "{{route('lesson.store')}}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token()}}",
+                name: name,
+                grade: grade
+            },
+            beforeSend: function(){
+                $('#submit').attr("disabled", true);
+                console.log("Request has been sent!");
+            },
+            success: function(response){
+                console.log("Response is successfull!");
+            },
+            error: function(response){
+                var errors = response.responseJSON.errors;
+                console.log(response.responseJSON);
+                if(errors.name != undefined){
+                    console.log('a')
+                    nameError.innerText = errors.name[0];
+                }
+                if(errors.grade != undefined){
+                    gradeError.text(errors.grade[0]); 
+                    console.log(gradeError)
+                }
+            },
+            complete: function(){
+                $('#submit').attr("disabled", false);
+            }
+        });
+
+    });
+</script>
 @endsection

@@ -17,6 +17,6 @@ class LessonController extends Controller
         $lesson->grade = $request->grade;
         $lesson->name = $request->name;
         $lesson->save();
-        return 'store';
+        return response()->json(['success' => 'That\'s successfull']);
     }
 }

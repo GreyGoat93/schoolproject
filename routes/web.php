@@ -35,6 +35,10 @@ Route::get('/management/createclassroom', [ClassroomController::class, 'create']
 ->middleware('isManager')
 ->name('classroom.create');
 
+Route::get('/management/classroombygrade/{grade}', [ClassroomController::class, 'getByGrade'])
+->middleware('isManager')
+->name('classroom.getByGrade');
+
 Route::post('/management/createclassroom', [ClassroomController::class, 'store'])
 ->middleware('isManager')
 ->name('classroom.store');

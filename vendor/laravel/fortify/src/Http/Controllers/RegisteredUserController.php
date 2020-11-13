@@ -55,18 +55,7 @@ class RegisteredUserController extends Controller
     {
         // dd($request);
         event(new Registered($user = $creator->create($request->all())));
-        if($request->role_id == 2){
-            $teacher = new Teacher;
-            $teacher->user_id = $user->id;
-            $teacher->save();
-        }
-        else if($request->role_id == 3){
-            $student = new Student;
-            $student->user_id = $user->id;
-            $student->grade = 5;
-            $student->classroom_id = 1;
-            $student->save();
-        }
+        
         //$this->guard->login($user);
 
         return app(RegisterResponse::class);

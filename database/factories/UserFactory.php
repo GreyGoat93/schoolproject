@@ -40,6 +40,10 @@ class UserFactory extends Factory
         return $this->state(function(array $attributes){
             return [
                 'role_id' => 1,
+                'first_name' => "Taha",
+                'last_name' => "Boyraz",
+                'gender' => "male",
+                'email' => "ahmet.tahaa93@gmail.com",
             ];
         });
     }

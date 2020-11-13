@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -22,7 +23,7 @@
 <body>
     <div class="container-fluid">
         <div class="row" style="min-height:100vh;">
-            <div class="col-2 bg-primary p-0">
+            <div class="col-md-2 bg-primary p-0">
                 <ul class="list-group">
                     <li class="list-group-item rounded-0"><a href="{{route('user.create', ['role' => 'student'])}}">Create New Student</a></li>
                     <li class="list-group-item rounded-0"><a href="{{route('user.create', ['role' => 'teacher'])}}">Create New Teacher</a></li>
@@ -31,7 +32,7 @@
                 </ul>
             </div>
 
-            <main class="col-10 bg-secondary">
+            <main class="col-md-10 bg-secondary">
                 @yield('content')
             </main>
         </div>

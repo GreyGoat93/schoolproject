@@ -13,6 +13,7 @@ class ClassroomController extends Controller
     }
     
     public function store(ClassroomRequest $request){
+
         $doesExist = Classroom::where('grade', $request->grade)
         ->where('branch', $request->branch)->first() != null;
 
@@ -27,5 +28,19 @@ class ClassroomController extends Controller
             $cs->save();
             return redirect()->back();
         }
+    }
+
+    public function getByGrade($grade){
+        $classrooms = Classroom::where('grade', $grade)
+        ->orderBy('branch', 'asc')
+        ->get();
+
+        $html = '';
+
+        foreach($classrooms as $classroom){
+            $html .= "<option value='" . $classroom->id . "'>" . $classroom->branch . "</option>";
+        }
+
+        return response($html);//->json(['success' => $classrooms]);
     }
 }

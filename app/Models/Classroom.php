@@ -12,6 +12,7 @@ class Classroom extends Model
     protected $table = "classrooms";
     protected $primaryKey = "id";
     protected $fillable = ['grade', 'branch', 'quota'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function student(){
         return $this->hasMany('App\Models\Student');

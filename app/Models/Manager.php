@@ -9,7 +9,7 @@ class Manager extends Model
 {
     use HasFactory;
 
-    protected $table = "manager";
+    protected $table = "managers";
     protected $primaryKey = "id";
 
     public function user(){
