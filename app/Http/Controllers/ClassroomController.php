@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Http\Requests\ClassroomRequest;
+use App\Services\ClassroomService;
+use App\Services\TeacherHaveLessonService;
 
 class ClassroomController extends Controller
 {
@@ -14,33 +16,27 @@ class ClassroomController extends Controller
     
     public function store(ClassroomRequest $request){
 
-        $doesExist = Classroom::where('grade', $request->grade)
-        ->where('branch', $request->branch)->first() != null;
+        $service = new ClassroomService($request);
+        $doesExist = $service->check();
 
-        if($doesExist){
-            return 'This classroom is already there!';
+        if($doesExist != null){
+            return redirect()->back()->with('error', 'This classroom already exists');
         }
         else{
-            $cs = new Classroom();
-            $cs->grade = $request->grade;
-            $cs->branch = $request->branch;
-            $cs->quota = $request->quota;
-            $cs->save();
+            $service->store();
             return redirect()->back();
         }
     }
 
     public function getByGrade($grade){
-        $classrooms = Classroom::where('grade', $grade)
-        ->orderBy('branch', 'asc')
-        ->get();
-
-        $html = '';
-
-        foreach($classrooms as $classroom){
-            $html .= "<option value='" . $classroom->id . "'>" . $classroom->branch . "</option>";
-        }
-
-        return response($html);//->json(['success' => $classrooms]);
+        $html = (new ClassroomService())->makeOptions($grade);
+        return response($html);
     }
+
+    public function show($id){
+        $classroom = Classroom::findOrFail($id);
+        $lessons = (new TeacherHaveLessonService())->classroomLessons($id);
+        return view('management.showClassroom'
+        , ['classroom' => $classroom, 'lessons' => $lessons]);
+    } 
 }

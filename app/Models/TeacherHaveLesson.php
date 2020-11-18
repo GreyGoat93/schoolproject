@@ -8,16 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class TeacherHaveLesson extends Model
 {
     use HasFactory;
+    protected $table = 'teachers_have_lesson';
 
     public function lesson(){
-        $this->belongsTo('App\Models\Lesson');
+        return $this->belongsTo('App\Models\Lesson');
     }
 
     public function teacher(){
-        $this->belongsTo('App\Models\Teacher');
+        return $this->belongsTo('App\Models\Teacher');
     }
 
     public function classroom(){
-        $this->belongsTo('App\Models\Classroom');
+        return $this->belongsTo('App\Models\Classroom');
     }
 }

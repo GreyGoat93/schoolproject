@@ -12,11 +12,11 @@
         </tr>
     @foreach($users as $user)
         <tr data-id="{{$user->id}}">
-            <td><a href="#" class="text-danger">{{$user->first_name}}</a></td>
-            <td><a href="#">{{$user->last_name}}</a></td>
-            <td><a href="#">{{$user->gender}}</a></td>
-            <td><a href="#">{{$user->role_id}}</a></td>
-            <td><a href="#">{{$user->email}}</a></td>
+            <td><a href="{{route('user.show', ['id' => $user->id])}}" class="text-danger">{{$user->first_name}}</a></td>
+            <td><a href="{{route('user.show', ['id' => $user->id])}}">{{$user->last_name}}</a></td>
+            <td><a href="{{route('user.show', ['id' => $user->id])}}">{{$user->gender}}</a></td>
+            <td><a href="{{route('user.show', ['id' => $user->id])}}">{{$user->role_id}}</a></td>
+            <td><a href="{{route('user.show', ['id' => $user->id])}}">{{$user->email}}</a></td>
         </tr>
     @endforeach
     </table>

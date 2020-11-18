@@ -47,8 +47,6 @@
                             </div>
                         </div>
 
-                            
-
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="email" >{{ __('E-Mail') }}</label>
@@ -75,11 +73,17 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
+
                         @if($roleid == 3)
                         <div class="form-row">
                             <div class="form-group col-md-2">
                                 <label for="grade">{{ __('Grade') }}</label>
-                                <input id="grade" type="number" class="form-control @error('grade') is-invalid @enderror" name="grade" value="{{ old('grade') ?? 5}}" required autocomplete="grade" autofocus>
+                                <select id="grade" class="form-control @error('grade') is-invalid @enderror" name="grade" value="{{ old('grade') ?? 5}}" required autocomplete="grade" autofocus>
+                                    @for($i = 1; $i <= 12; $i++)
+                                        <option value="{{$i}}">{{$i}}</option>
+                                    @endfor
+                                </select>
+                                
                                 @error('grade')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -91,6 +95,11 @@
                                     <input id="hasClassroom" type="checkbox" class="form-check-input" name="hasClassroom" autofocus>
                                     <label for="hasClassroom" class="form-check-label">{{ __('This student has a classroom?') }}</label>
                                 </div>
+                                @error('hasClassroom')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>  
                             <div class="form-group col-md-3">
                                 <label for="branch">{{ __('Branch') }}</label>
@@ -143,16 +152,18 @@
                 $('#branch').attr('disabled', false);
                 $('#grade').attr('disabled', false);
             }
-        })
+        });
     }
 
     $('#hasClassroom').change(function(){
         if(this.checked)
         {
+            $(this)[0].value = true;
             $('#branch').attr('disabled', false);
         }
         else if(!this.checked)
         {
+            $(this)[0].value = false;
             $('#branch').attr('disabled', true);
         }
     });
@@ -166,6 +177,16 @@
     $('document').ready(function(){
         let value = $('#grade')[0].value
         getClassroomByGrade(value);
+        if($('#hasClassroom')[0].checked)
+        {
+            $('#hasClassroom')[0].value = true;
+            $('#branch').attr('disabled', false);
+        }
+        else if(!$('#hasClassroom')[0].checked)
+        {
+            $('#hasClassroom')[0].value = false;
+            $('#branch').attr('disabled', true);
+        }
     });
 </script>
 @endsection

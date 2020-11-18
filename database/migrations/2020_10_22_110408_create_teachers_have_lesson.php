@@ -15,6 +15,7 @@ class CreateTeachersHaveLesson extends Migration
     {
         Schema::create('teachers_have_lesson', function (Blueprint $table) {
             $table->id();
+            $table->integer('minimum_score');
             $table->unsignedBigInteger('teacher_id');
             $table->unsignedBigInteger('classroom_id');
             $table->unsignedBigInteger('lesson_id');

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Manager;
 use App\Models\Teacher;
 use App\Models\Student;
+use App\Models\Classroom;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -26,6 +27,8 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         //dd($input, array_key_exists('role_id', $input), array_key_exists('grade', $input));
+        $studentClass = null;
+
         Validator::make($input, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -44,10 +47,21 @@ class CreateNewUser implements CreatesNewUsers
         if($input['role_id'] == 3){
             Validator::make($input,[
                 'grade' => ['integer', new NumbersBetween(1, 12)],
-                'hasClassroom' => ['required', 'boolean'],
-                'classroomGrade' => ['integer', 'same:grade', 'required_if:hasClassroom,true'],
-                'classroomBranch' => ['string', new Length(1, 2), 'required_if:hasClassroom,true'],
+                'branch' => ['integer', 'required_with:hasClassroom'],
             ])->validate();
+
+            if(array_key_exists('hasClassroom', $input)){
+                if(count(
+                    Student::where('classroom_id', $input['branch'])
+                    ->get()) <= Classroom::where('id', $input['branch'])->first()->quota
+                    && $input['grade'] == Classroom::where('id', $input['branch'])->first()->grade
+                ){
+                    $studentClass = $input['branch'];
+                }
+                else{
+                    return redirect()->back();
+                }
+            }
         }
 
         $user = User::create([
@@ -72,10 +86,11 @@ class CreateNewUser implements CreatesNewUsers
         else if($input['role_id'] == 3){
             $student = new Student;
             $student->user_id = $user->id;
-            $student->grade = 5;
-            $student->classroom_id = 1;
+            $student->grade = $input['grade'];
+            $student->classroom_id = $studentClass;
             $student->save();
         }
+
         return $user;
     }
 }

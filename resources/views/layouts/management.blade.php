@@ -25,14 +25,16 @@
         <div class="row" style="min-height:100vh;">
             <div class="col-md-2 bg-primary p-0">
                 <ul class="list-group">
+                    <li class="list-group-item rounded-0"><a href="{{route('user.index')}}">Users</a></li>
                     <li class="list-group-item rounded-0"><a href="{{route('user.create', ['role' => 'student'])}}">Create New Student</a></li>
                     <li class="list-group-item rounded-0"><a href="{{route('user.create', ['role' => 'teacher'])}}">Create New Teacher</a></li>
                     <li class="list-group-item rounded-0"><a href="{{route('classroom.create')}}">Create New Classroom</a></li>
                     <li class="list-group-item rounded-0"><a href="{{route('lesson.create')}}">Create New Lesson</a></li>
+                    <li class="list-group-item rounded-0"><a href="{{route('thl.create')}}">Attend a Teacher To Lesson</a></li>
                 </ul>
             </div>
 
-            <main class="col-md-10 bg-secondary">
+            <main class="col-md-10" style="background:white;">
                 @yield('content')
             </main>
         </div>
