@@ -92,6 +92,7 @@
             },
             success: function(response){
                 $('#classInfo')[0].innerHTML = "Class: " + grade + "/" + branch;
+                console.log(response);
             },
             error: function(response){
                 console.log(response);

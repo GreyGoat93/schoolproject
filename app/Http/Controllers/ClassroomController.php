@@ -36,7 +36,7 @@ class ClassroomController extends Controller
     public function show($id){
         $classroom = Classroom::findOrFail($id);
         $lessons = (new TeacherHaveLessonService())->classroomLessons($id);
-        return view('management.showClassroom'
-        , ['classroom' => $classroom, 'lessons' => $lessons]);
+        return view('management.showClassroom', 
+        ['classroom' => $classroom, 'lessons' => $lessons]);
     } 
 }

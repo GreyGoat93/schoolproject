@@ -28,29 +28,9 @@ class TeacherHaveLessonService {
 
     public function classroomLessons($classroomId){
         $thl = TeacherHaveLesson::where('classroom_id', $classroomId)
-        ->with(['Teacher', 'Lesson'])
+        ->with(['Teacher.User', 'Lesson'])
         ->get();
-
-        $thldata = [];
-
-        if(count($thl) <= 0){
-            $thldata = null;
-        }
-        else{
-            foreach($thl as $data){
-                $user = User::findOrFail($data->teacher->user_id);
-                
-                array_push($thldata, (object)[
-                    'teacherFN' => $user->first_name,
-                    'teacherLN' => $user->last_name,
-                    'teacherID' => $user->id,
-                    'lessonName' => $data->lesson->name,
-                    'lessonID' => $data->lesson->id,
-                    'minimumScore' => $data->minimum_score,
-                ]);
-            }
-        }
-
-        return $thldata;
+        
+        return $thl;
     }
 }

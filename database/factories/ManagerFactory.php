@@ -22,9 +22,7 @@ class ManagerFactory extends Factory
      */
     public function definition()
     {
-        $user = User::factory()->manager()->create();
         return [
-            'user_id' => $user->id,
         ];
     }
 }

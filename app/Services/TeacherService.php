@@ -18,9 +18,10 @@ class TeacherService {
 
         $html = '';
         $users = (new UserService())->getByRoleId(2);
+        $teachers = Teacher::all();
 
         foreach($users as $user){
-            $teacher = Teacher::where('user_id', $user->id)->first();
+            $teacher = $teachers->where('user_id', $user->id)->first();
 
             $html .= "<option value='" . $teacher->id . "'>" . $user->first_name
              . ' ' . $user->last_name . "</option>";

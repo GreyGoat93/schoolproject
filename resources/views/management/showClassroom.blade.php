@@ -12,8 +12,9 @@
             @if($lessons != null)
                 @foreach($lessons as $lesson)
                 <div class="">
+                    <div class="d-inline">{{ucfirst($lesson->name)}}</div>
                     <div class="d-inline">{{$lesson->teacherFN}} {{$lesson->teacherLN}}</div>
-                    <div class="d-inline">{{$lesson->lessonID}}</div>
+                    <div class="d-inline">{{$lesson->id}}</div>
                 </div>
                 @endforeach
             @else

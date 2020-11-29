@@ -10,6 +10,7 @@ class StudentController extends Controller
 {
     public function editClassroom($id, Request $request){
         (new StudentService($request))->update($id);
-        return response()->json(['success' => 'successful']);
+        $a = (new StudentService())->assignLessons(Student::find($id));
+        return response()->json($a);
     }
 }

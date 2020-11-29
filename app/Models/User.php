@@ -59,4 +59,16 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function student(){
+        return $this->hasOne('App\Models\Student');
+    }
+
+    public function teacher(){
+        return $this->hasOne('App\Models\Teacher');
+    }
+
+    public function manager(){
+        return $this->hasOne('App\Models\Manager');
+    }
 }

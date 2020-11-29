@@ -14,7 +14,7 @@ class Student extends Model
     protected $fillable = ["grade", "user_id", "classroom_id"];
 
     public function user(){
-        return $this->hasOne('App\Models\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function classroom(){
@@ -26,6 +26,8 @@ class Student extends Model
     }
 
     public function lesson(){
-        return $this->belongsToMany('App\Models\Lesson', 'students_lessons', 'id', 'id');
+        return $this->belongsToMany('App\Models\Lesson', 'students_lessons', 'student_id', 'lesson_id')
+        ->withPivot('is_active', 'has_project')
+        ->withTimestamps();
     }
 }

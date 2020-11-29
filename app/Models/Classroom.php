@@ -21,8 +21,4 @@ class Classroom extends Model
     public function teacherHaveLesson(){
         return $this->hasMany('App\Models\TeacherHaveLesson');
     }
-
-    public function lesson(){
-        return $this->belongsToMany('App\Models\Lesson', 'lesson_classrooms', 'id', 'id');
-    }
 }

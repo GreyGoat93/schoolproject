@@ -22,9 +22,7 @@ class TeacherFactory extends Factory
      */
     public function definition()
     {
-        $user = User::factory()->teacher()->create();
         return [
-            'user_id' => $user->id,
         ];
     }
 }

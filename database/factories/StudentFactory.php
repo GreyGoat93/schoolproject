@@ -22,10 +22,8 @@ class StudentFactory extends Factory
      */
     public function definition()
     {
-        $user = User::factory()->student()->create();
         return [
             'grade' => rand(1, 12),
-            'user_id' => $user->id,
         ];
     }
 }

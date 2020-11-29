@@ -21,11 +21,9 @@ class Lesson extends Model
         return $this->hasMany('App\Models\TeacherHaveLesson');
     }
 
-    public function classroom(){
-        return $this->belongsToMany('App\Models\Classroom', 'lessons_classrooms', 'id', 'id');
-    }
-
     public function student(){
-        return $this->belongsToMany('App\Models\Classroom', 'students_lessons', 'id', 'id');
+        return $this->belongsToMany('App\Models\Classroom', 'students_lessons', 'lesson_id', 'student_id')
+        ->withPivot('is_active', 'has_project')
+        ->withTimestamps();
     }
 }

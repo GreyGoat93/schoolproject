@@ -13,6 +13,7 @@ use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use App\Rules\NumbersBetween;
 use App\Rules\Length;
+use App\Services\StudentService;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -26,7 +27,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        //dd($input, array_key_exists('role_id', $input), array_key_exists('grade', $input));
+        
         $studentClass = null;
 
         Validator::make($input, [
@@ -49,17 +50,14 @@ class CreateNewUser implements CreatesNewUsers
                 'grade' => ['integer', new NumbersBetween(1, 12)],
                 'branch' => ['integer', 'required_with:hasClassroom'],
             ])->validate();
-
+                
             if(array_key_exists('hasClassroom', $input)){
-                if(count(
-                    Student::where('classroom_id', $input['branch'])
-                    ->get()) <= Classroom::where('id', $input['branch'])->first()->quota
-                    && $input['grade'] == Classroom::where('id', $input['branch'])->first()->grade
-                ){
+                $classroom = (new StudentService())->validateClassroom($input['branch'], $input['grade']);
+                if($classroom == true){
                     $studentClass = $input['branch'];
                 }
                 else{
-                    return redirect()->back();
+                    return dd('falseee');
                 }
             }
         }
@@ -77,11 +75,13 @@ class CreateNewUser implements CreatesNewUsers
             $manager = new Manager();
             $manager->user_id = $user->id;
             $manager->save();
+            $user->manager_id = $manager->id;
         }
         else if($input['role_id'] == 2){
             $teacher = new Teacher;
             $teacher->user_id = $user->id;
             $teacher->save();
+            $user->teacher_id = $teacher->id;
         }
         else if($input['role_id'] == 3){
             $student = new Student;
@@ -89,8 +89,10 @@ class CreateNewUser implements CreatesNewUsers
             $student->grade = $input['grade'];
             $student->classroom_id = $studentClass;
             $student->save();
+            (new StudentService())->assignLessons($student);
+            $user->student_id = $student->id;
         }
-
+        $user->save();
         return $user;
     }
 }
